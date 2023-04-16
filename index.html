@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <link href="estilos.css" rel="stylesheet" />
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <title>Bate-Papo UOL</title>
+</head>
+
+<body onload="entrarSala()">
+    <div class="main">
+        <div class="menu-superior">
+            <img class="logo" src="./logo.png">
+            <ion-icon class="people-icon" name="people"></ion-icon>
+        </div>
+
+        <ul class="mensagens"></ul>
+
+        <div class="menu-inferior">
+            <input type="text" class="caixa-mensagem" placeholder="Escreva aqui...">
+            <ion-icon class="paper-plane-icon" name="paper-plane-outline" onclick="enviarMensagem()"></ion-icon>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./script.js"></script>
+</body>
