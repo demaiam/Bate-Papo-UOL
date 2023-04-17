@@ -22,8 +22,8 @@
         <ul class="mensagens"></ul>
 
         <div class="menu-inferior">
-            <input type="text" class="caixa-mensagem" placeholder="Escreva aqui...">
-            <ion-icon class="paper-plane-icon" name="paper-plane-outline" onclick="enviarMensagem()"></ion-icon>
+            <input type="text" class="caixa-mensagem" placeholder="Escreva aqui..." data-test="input-message">
+            <button class="botao-enviar" onclick="enviarMensagem()" data-test="send-message"><ion-icon class="paper-plane-icon" name="paper-plane-outline"></ion-icon></button>
         </div>
 
     </div>

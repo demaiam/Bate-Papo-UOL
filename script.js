@@ -61,7 +61,7 @@ function renderizarMensagens() {
     
         if (mensagem.type == 'status') {
             ulMensagens.innerHTML += `
-                <li class="entrou-saiu">
+                <li class="entrou-saiu" data-test="message">
                     <div class="container-mensagem">
                         <a class="time">(${mensagem.time}) </a>
                         <a class="from">${mensagem.from} </a>
@@ -69,9 +69,20 @@ function renderizarMensagens() {
                     </div>
                 </li>
             `;
+        } else if (mensagem.type == 'private_message') {
+            ulMensagens.innerHTML += `
+            <li class="mensagem-privada" data-test="message">
+                <div class="container-mensagem">
+                    <a class="time">(${mensagem.time}) </a>
+                    <a class="from">${mensagem.from} </a> para
+                    <a class="to">${mensagem.to}</a>:
+                    <a class="text">${mensagem.text}</a>
+                </div>
+            </li>
+        `;
         } else {
             ulMensagens.innerHTML += `
-                <li class="mensagem-padrao">
+                <li class="mensagem-padrao" data-test="message">
                     <div class="container-mensagem">
                         <a class="time">(${mensagem.time})</a>
                         <a class="from">${mensagem.from}</a> para
