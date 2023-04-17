@@ -16,10 +16,16 @@ function entrarSala() {
 
 function processarNome(res) {
     console.log(res);
+}
 
-    if (res.data == 'OK') {
-        console.log('bom');
-    }
+function nomeJaExistente() {
+    nome = prompt("Nome já utilizado. Escolha outro:");
+
+    nomeRequest = {
+        name: nome
+    };
+
+    criarPromiseNome();
 }
 
 setInterval(criarPromiseMensagens, 3000);
@@ -27,7 +33,7 @@ setInterval(criarPromiseMensagens, 3000);
 setInterval(verificaStatus, 5000);
 
 function verificaStatus () {
-    const requisicaoStatus = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', nomeRequest)
+    const requisicaoStatus = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', nomeRequest);
 }
 
 function criarPromiseMensagens() {
@@ -39,7 +45,7 @@ function criarPromiseMensagens() {
 function criarPromiseNome() {
     const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/vm/uol/participants', nomeRequest);
 
-    requisicaoNome.then(processarNome);
+    requisicaoNome.catch(nomeJaExistente);
 }
 
 function processarMensagens(res) {
@@ -105,7 +111,18 @@ function enviarMensagem() {
         type: 'message',
     };
 
-    const promessa = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', novaMensagem);
+    const promiseNovaMensagem = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', novaMensagem);
+    promiseNovaMensagem.then(processarNovaMensagem);
+    promiseNovaMensagem.catch(erroMensagem);
+}
 
+function processarNovaMensagem(res) {
+    console.log(res);
+    criarPromiseMensagens();
+}
+
+function erroMensagem(res){
+    console.log(res);
+    window.location.reload();
 }
 
