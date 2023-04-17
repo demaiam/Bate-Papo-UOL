@@ -1,24 +1,48 @@
 axios.defaults.headers.common['Authorization'] = '97eVqU1AsszfPTccPmhDFe5m';
 var nome = '';
+var nomeRequest = '';
 
 let mensagens =  [];
 
-const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
-promise.then(processarListaRecebidaDoServidor);
+function entrarSala() {
+    nome = prompt("Qual é o seu nome?");
 
-/*const mensagensteste = [
-    {
-        from: 'João',
-        to: 'Todos',
-        text: 'Oi',
-        type: 'message',
-        time: '08:02:50'
+    nomeRequest = {
+        name: nome
+    };
+
+    criarPromiseNome();
+}
+
+function processarNome(res) {
+    console.log(res);
+
+    if (res.data == 'OK') {
+        console.log('bom');
     }
-]*/
+}
 
+setInterval(criarPromiseMensagens, 3000);
 
+setInterval(verificaStatus, 5000);
 
-function processarListaRecebidaDoServidor(res){
+function verificaStatus () {
+    const requisicaoStatus = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', nomeRequest)
+}
+
+function criarPromiseMensagens() {
+    const promiseMensagem = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
+
+    promiseMensagem.then(processarMensagens);
+}
+
+function criarPromiseNome() {
+    const requisicaoNome = axios.post('https://mock-api.driven.com.br/api/vm/uol/participants', nomeRequest);
+
+    requisicaoNome.then(processarNome);
+}
+
+function processarMensagens(res) {
     console.log(res);
     
     mensagens = res.data;
@@ -26,55 +50,48 @@ function processarListaRecebidaDoServidor(res){
     renderizarMensagens();
 }
 
-function renderizarMensagens(){
-
+function renderizarMensagens() {
     const ulMensagens = document.querySelector('.mensagens');
+
     ulMensagens.innerHTML = '';
 
-
-    for (let i = 0; i < mensagens.length; i++){
+    for (let i = 0; i < mensagens.length; i++) {
 
         let mensagem = mensagens[i];
     
-        if (mensagem.type == 'status'){
+        if (mensagem.type == 'status') {
             ulMensagens.innerHTML += `
                 <li class="entrou-saiu">
-                    <a class="time">  (${mensagem.time}) </a>
-                    <a class="from">${mensagem.from} </a>
-                    <a class="text">${mensagem.text}</a>
+                    <div class="container-mensagem">
+                        <a class="time">(${mensagem.time}) </a>
+                        <a class="from">${mensagem.from} </a>
+                        <a class="text">${mensagem.text}</a>
+                    </div>
                 </li>
             `;
-        }
-        else {
+        } else {
             ulMensagens.innerHTML += `
                 <li class="mensagem-padrao">
-                    <a class="time">  (${mensagem.time})</a>
-                    <a class="from">${mensagem.from}</a> para
-                    <a class="to">${mensagem.to}</a>:
-                    <a class="text">${mensagem.text}</a>
+                    <div class="container-mensagem">
+                        <a class="time">(${mensagem.time})</a>
+                        <a class="from">${mensagem.from}</a> para
+                        <a class="to">${mensagem.to}</a>:
+                        <a class="text">${mensagem.text}</a>
+                    </div>
                 </li>
             `;
         }
     }
 }
 
-
-function entrarSala() {
-    nome = prompt("Qual é o seu nome?");
-    const requisicao = axios.post('https://mock-api.driven.com.br/api/vm/uol/participants', nome);
-}
-
-
 function enviarMensagem() {
     const message = document.querySelector('.caixa-mensagem');
-
 
     const novaMensagem = {
         from: nome,
         to: 'Todos',
         text: message.value,
         type: 'message',
-        time:  '04:04:04'
     };
 
     const promessa = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', novaMensagem);

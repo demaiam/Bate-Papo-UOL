@@ -1,9 +1,10 @@
 body {
     background-color: #E5E5E5;
     font-family: 'Roboto', sans-serif;
+    width: 375px;
 }
 .main {
-    width: 375px;
+    
 }
 
 .menu-superior {
@@ -66,7 +67,6 @@ body {
 }
 
 .time {
-
     color: #AAAAAA;
     font-weight: 400;
 }
@@ -96,7 +96,7 @@ body {
     position: absolute;
     z-index: 1;
     margin-top: 80px;
-    margin-bottom: 100px;  
+    padding-bottom: 80px;  
     margin-left: -48px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -122,6 +122,13 @@ li {
     background-color: #FFFFFF;
 }
 
+.mensagem-privada {
+    background-color: #FFDEDE;
+}
+
+.container-mensagem {
+    padding-left: 10px;
+}
 
 
 
